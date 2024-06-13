@@ -6,17 +6,36 @@ import {
 } from '@nestjs/common';
 import { MantleBridge } from '../bridge';
 import { FinalizeDto } from './finalize.dto';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('withdrawal')
 @Controller('finalize')
 export class FinalizeController {
   constructor(private readonly mantleBridge: MantleBridge) {}
 
-  /*
-  curl -X POST http://localhost:3020/finalize \
-     -H "Content-Type: application/json" \
-     -d '{"txHash": "0xaf98c986659ca38c2a9df53071334a2b42d8c828bacd47446b6ae81a7b188453"}'
-  */
   @Post()
+  @ApiOperation({
+    summary: 'Finalize withdrawal',
+    description: 'Finalizes the specified withdrawal transaction.',
+  })
+  @ApiBody({
+    type: FinalizeDto,
+    description: 'Details of the finalize transaction.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Successful finalize',
+    schema: {
+      example: { txHash: '0x1234567890abcdef...', latency: 100 },
+    },
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal Server Error',
+    schema: {
+      example: { error: 'Error message', latency: 100 },
+    },
+  })
   async finalize(@Body() finalizeDto: FinalizeDto) {
     const startTime = Date.now();
 

@@ -6,17 +6,37 @@ import {
 } from '@nestjs/common';
 import { MantleBridge } from '../bridge';
 import { DepositDto } from './deposit.dto';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
+@ApiTags('deposit')
 @Controller('deposit')
 export class DepositController {
   constructor(private readonly mantleBridge: MantleBridge) {}
 
-  /*
-  curl -X POST http://localhost:3020/deposit \
-     -H "Content-Type: application/json" \
-     -d '{"ticker": "ETH", "amount": "1000000000000"}'
-  */
   @Post()
+  @ApiOperation({
+    summary: 'Deposit tokens in L1',
+    description:
+      'Deposits the specified amount of tokens to the bridge contract in L1.',
+  })
+  @ApiBody({
+    type: DepositDto,
+    description: 'Details of the deposit transaction.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Successful deposit',
+    schema: {
+      example: { txHash: '0xabc123...', latency: 120 },
+    },
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal Server Error',
+    schema: {
+      example: { error: 'Error message', latency: 120 },
+    },
+  })
   async deposit(@Body() depositDto: DepositDto) {
     const startTime = Date.now();
     const amount = BigInt(depositDto.amount);

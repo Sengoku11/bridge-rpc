@@ -6,17 +6,36 @@ import {
 } from '@nestjs/common';
 import { MantleBridge } from '../bridge';
 import { WithdrawDto } from './withdraw.dto';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('withdrawal')
 @Controller('withdraw')
 export class WithdrawController {
   constructor(private readonly mantleBridge: MantleBridge) {}
 
-  /*
-  curl -X POST http://localhost:3020/withdraw \
-     -H "Content-Type: application/json" \
-     -d '{"ticker": "ETH", "amount": "1000000000000"}'
-  */
   @Post()
+  @ApiOperation({
+    summary: 'Withdraw tokens',
+    description: 'Withdraws the specified amount of tokens.',
+  })
+  @ApiBody({
+    type: WithdrawDto,
+    description: 'Details of the withdraw transaction.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Successful withdraw',
+    schema: {
+      example: { txHash: '0xabc123...', latency: 120 },
+    },
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal Server Error',
+    schema: {
+      example: { error: 'Error message', latency: 120 },
+    },
+  })
   async withdraw(@Body() withdrawDto: WithdrawDto) {
     const startTime = Date.now();
     const amount = BigInt(withdrawDto.amount);

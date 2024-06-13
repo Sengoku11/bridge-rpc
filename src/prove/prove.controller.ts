@@ -6,17 +6,37 @@ import {
 } from '@nestjs/common';
 import { MantleBridge } from '../bridge';
 import { ProveDto } from './prove.dto';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('withdrawal')
 @Controller('prove')
 export class ProveController {
   constructor(private readonly mantleBridge: MantleBridge) {}
 
-  /*
-  curl -X POST http://localhost:3020/prove \
-     -H "Content-Type: application/json" \
-     -d '{"txHash": "0xaf98c986659ca38c2a9df53071334a2b42d8c828bacd47446b6ae81a7b188453"}'
-  */
   @Post()
+  @ApiOperation({
+    summary: 'Prove withdrawal',
+    description: 'Proves the specified withdrawal transaction.',
+  })
+  @ApiBody({ type: ProveDto, description: 'Details of the prove transaction.' })
+  @ApiResponse({
+    status: 200,
+    description: 'Successful prove',
+    schema: {
+      example: {
+        txHash:
+          '0x1234567890abcdef...',
+        latency: 100,
+      },
+    },
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Internal Server Error',
+    schema: {
+      example: { error: 'Error message', latency: 100 },
+    },
+  })
   async prove(@Body() proveDto: ProveDto) {
     const startTime = Date.now();
 
