@@ -1,0 +1,17 @@
+{
+  "name": "Sepolia testnet",
+  "tokens": [
+    {
+      "symbol": "MNT",
+      "addressL1": "0x65e37B558F64E2Be5768DB46DF22F93d85741A9E",
+      "addressL2": "0x0000000000000000000000000000000000000000",
+      "decimals": 18
+    },
+    {
+      "symbol": "ETH",
+      "addressL1": "0x0000000000000000000000000000000000000000",
+      "addressL2": "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111",
+      "decimals": 18
+    }
+  ]
+}
