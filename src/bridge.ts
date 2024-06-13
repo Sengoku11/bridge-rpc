@@ -56,7 +56,7 @@ export class MantleBridge {
 
   constructor() {
     this.network = process.env.EXEC_ENV;
-    this.l2GasPrice = 0.03 * this.GWEI;
+    this.l2GasPrice = 0.02 * this.GWEI;
 
     const key = process.env.PRIV_KEY!;
     this.l1RpcProvider = new providers.JsonRpcProvider(process.env.L1_RPC);
@@ -123,15 +123,15 @@ export class MantleBridge {
   ) {
     let response: TransactionResponse;
 
-    const currentNonce = await this.l2RpcProvider.getTransactionCount(
+    const nextNonceL2 = await this.l2RpcProvider.getTransactionCount(
       this.l2Wallet.address,
     );
 
     const opts = {
       overrides: {
-        gasLimit: 10_000_000_000,
-        // gasPrice: this.l2GasPrice,
-        nonce: currentNonce + 1,
+        gasLimit: 1_000_000_000,
+        gasPrice: this.l2GasPrice,
+        nonce: nextNonceL2,
       },
     };
 
@@ -163,6 +163,7 @@ export class MantleBridge {
       throw new Error('Unsupported token type');
     }
 
+    console.log(`Transaction hash (on L2): ${response.hash}`);
     await response.wait();
 
     return response.hash;
@@ -208,7 +209,7 @@ export class MantleBridge {
   }
 
   async approve(tokenSymbol: string, amount: bigint, layer: 'L1' | 'L2') {
-    const currentNonce = await this.l2RpcProvider.getTransactionCount(
+    const nextNonceL2 = await this.l2RpcProvider.getTransactionCount(
       this.l2Wallet.address,
     );
 
@@ -218,9 +219,9 @@ export class MantleBridge {
         layer == 'L1'
           ? undefined
           : {
-              gasLimit: 10_000_000_000,
+              gasLimit: 1_000_000_000,
               gasPrice: this.l2GasPrice,
-              nonce: currentNonce + 1,
+              nonce: nextNonceL2,
             },
     };
 

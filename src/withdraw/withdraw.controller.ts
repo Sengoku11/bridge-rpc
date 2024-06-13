@@ -1,6 +1,11 @@
-import { Body, Controller, InternalServerErrorException, Post } from "@nestjs/common";
-import { MantleBridge } from "../bridge";
-import { WithdrawDto } from "./withdraw.dto";
+import {
+  Body,
+  Controller,
+  InternalServerErrorException,
+  Post,
+} from '@nestjs/common';
+import { MantleBridge } from '../bridge';
+import { WithdrawDto } from './withdraw.dto';
 
 @Controller('withdraw')
 export class WithdrawController {
