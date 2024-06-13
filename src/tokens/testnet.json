@@ -12,6 +12,12 @@
       "addressL1": "0x0000000000000000000000000000000000000000",
       "addressL2": "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111",
       "decimals": 18
+    },
+    {
+      "symbol": "LINK",
+      "addressL1": "0x779877A7B0D9E8603169DdbD7836e478b4624789",
+      "addressL2": "0x567B10818d6fdD653F0331b5Df08968Ca826bE88",
+      "decimals": 18
     }
   ]
 }
