@@ -9,6 +9,9 @@ up to 7 days on the mainnet. The server is designed to be easily integrated into
 ## Running the app
 #### 1. Prepare .env file. 
 Optionally add new ERC-20 tokens to `/src/tokens/...` and create `mainnet.json` file.
+
+If you want to add a brand new ERC-20 token, you can follow my example: https://github.com/mantlenetworkio/mantle-token-lists/pull/79
+
 #### 2. Run:
 ```bash
 # in container
