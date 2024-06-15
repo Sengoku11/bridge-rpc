@@ -71,12 +71,12 @@ export class MantleBridge {
       bedrock: true,
     });
 
-    this.erc20ABI = JSON.parse(fs.readFileSync('src/abi/erc20.json', 'utf-8'));
+    this.erc20ABI = JSON.parse(fs.readFileSync('data/abi/erc20.json', 'utf-8'));
 
     const tokensPath =
       this.network === 'testnet'
-        ? 'src/tokens/testnet.json'
-        : 'src/tokens/mainnet.json';
+        ? 'data/tokens/testnet.json'
+        : 'data/tokens/mainnet.json';
     this.tokens = JSON.parse(
       fs.readFileSync(tokensPath, 'utf-8'),
     ) as TokensData;

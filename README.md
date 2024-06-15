@@ -1,4 +1,7 @@
 # Ethereum - Mantle Bridge
+![NestJS](https://img.shields.io/badge/nestjs-v10.3.9-E0234E.svg)
+![Swagger](https://img.shields.io/badge/swagger-v7.3.1-brightgreen.svg)
+
 This project provides a bridge between the Ethereum blockchain and the Mantle chain using the NestJS framework. 
 It offers a robust and efficient solution for multi-stage liquidity transfers, leveraging the convenience of RPC 
 to ensure atomic separation of commands. 
@@ -8,9 +11,9 @@ up to 7 days on the mainnet. The server is designed to be easily integrated into
 
 ## Running the app
 #### 1. Prepare .env file. 
-Optionally add new ERC-20 tokens to `/src/tokens/...` and create `mainnet.json` file.
+Optionally add new ERC-20 tokens to `/data/tokens/...` and create `mainnet.json` file.
 
-If you want to add a brand new ERC-20 token, you can follow my example: https://github.com/mantlenetworkio/mantle-token-lists/pull/79
+If you want to add a brand new ERC-20 token to Mantle list, you can follow my example: https://github.com/mantlenetworkio/mantle-token-lists/pull/79
 
 #### 2. Run:
 ```bash
@@ -29,7 +32,7 @@ $ yarn run start:dev
 # production mode
 $ yarn run start:prod
 ```
-#### 3. Open http://localhost:3020 in your browser.
+#### 3. Open http://localhost:3020 in your browser and follow Swagger documentation.
 
 ## Examples
 - [Deposit tx](https://sepolia.etherscan.io/tx/0x4bb0d94f7b588f26f6ebe2e4fa0f4dbf23fb8f9468149e5c4d2fa15595c4c33b)
@@ -38,6 +41,10 @@ $ yarn run start:prod
 - [Withdrawal tx](https://sepolia.mantlescan.xyz/tx/0x1e6755bb7b4191b8c786939d28d66a8c5b1259ab2f50a8f7a5dd5d5e484e17e5)
 
 [Check more transactions in my wallet](https://sepolia.etherscan.io/address/0xc492ad183c47196c34d3650bbac6a9b986fd4be0)
+
+## Blockchain Endpoint Providers
+- **Ethereum Sepolia**: https://alchemy.com
+- **Mantle Sepolia**: https://infura.io/
 
 ## Faucets
 - **ETH**: https://faucets.chain.link/sepolia, https://cloud.google.com/application/web3/faucet/ethereum/sepolia
